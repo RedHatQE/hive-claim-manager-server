@@ -1,0 +1,59 @@
+[tool.ruff]
+preview = true
+line-length = 120
+fix = true
+output-format = "grouped"
+
+[tool.ruff.format]
+exclude = [".git", ".venv", ".mypy_cache", ".tox", "__pycache__"]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+show_error_codes = true
+warn_unused_ignores = true
+
+[tool.poetry]
+name = "hive-claim-manager-server"
+version = "0.1.0"
+description = ""
+authors = ["Meni Yakove <myakove@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "api" }]
+
+[tool.poetry.scripts]
+hive-claim-manager-server = "api.api:main"
+
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.0.3"
+flask-sqlalchemy = "^3.1.1"
+pyaml-env = "^1.2.1"
+openshift-python-wrapper = "^10.0.39"
+shortuuid = "^1.0.13"
+openshift-python-utilities = "^5.0.41"
+flask-bcrypt = "^1.0.1"
+flask-session = "^0.8.0"
+redis = "^5.0.4"
+flask-cors = "^4.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.24.0"
+ipdb = "^0.13.13"
+
+
+[tool.poetry-dynamic-versioning]
+enable = true
+pattern = "((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
+
+[tool.poetry-dynamic-versioning.substitution]
+files = ["VERSION"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
