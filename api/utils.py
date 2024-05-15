@@ -92,6 +92,9 @@ def claim_cluster(user: str, pool: str) -> Dict[str, str]:
 
 
 def claim_cluster_delete(claim_name: str) -> None:
+    if not claim_name:
+        return
+
     _claim = ClusterClaim(
         name=claim_name,
         namespace=HIVE_CLUSTER_NAMESPACE,
@@ -99,14 +102,25 @@ def claim_cluster_delete(claim_name: str) -> None:
     _claim.clean_up()
 
 
-def delete_all_claims(user: str) -> Dict[str, str]:
+def get_all_user_claims_names(user: str) -> List[str]:
+    _user_claims: List[str] = []
     dyn_client = get_client()
-    deleted_claims = ""
+    _claim: Any
+    for _claim in ClusterClaim.get(dyn_client=dyn_client, namespace=HIVE_CLUSTER_NAMESPACE):
+        if user in _claim.name:
+            _user_claims.append(_claim.name)
+
+    return _user_claims
+
+
+def delete_all_claims(user: str) -> Dict[str, List[str]]:
+    dyn_client = get_client()
+    deleted_claims = []
     _claim: Any
     for _claim in ClusterClaim.get(dyn_client=dyn_client, namespace=HIVE_CLUSTER_NAMESPACE):
         if user in _claim.name:
             _claim.clean_up()
-            deleted_claims += f"Deleted {_claim.name} <br />"
+            deleted_claims.append(_claim.name)
 
     return {"deleted_claims": deleted_claims}
 
