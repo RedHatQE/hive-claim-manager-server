@@ -1,5 +1,6 @@
 FROM quay.io/redhat_msi/qe-tools-base-image:latest
 
+EXPOSE 5000
 RUN apt-get update \
   && apt-get install -y redis --no-install-recommends \
   && apt-get clean \
