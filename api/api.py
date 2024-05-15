@@ -45,6 +45,11 @@ with app.app_context():
     db.session.commit()
 
 
+@app.route("/healthcheck")
+def healthcheck() -> str:
+    return "alive"
+
+
 @app.route("/@me")
 def get_current_user() -> Tuple[Response, int]:
     user_id = session.get("user_id")

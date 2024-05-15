@@ -21,4 +21,5 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip --upgrade \
   && poetry config installer.max-workers 10 \
   && poetry install
 
+HEALTHCHECK CMD curl --fail http://127.0.0.1:5000/healthcheck || exit 1
 ENTRYPOINT ["./entrypoint.sh"]
