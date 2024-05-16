@@ -79,7 +79,7 @@ def get_cluster_pools() -> List[Dict[str, str]]:
 def claim_cluster(user: str, pool: str) -> Dict[str, str]:
     res: Dict[str, str] = {"error": "", "name": ""}
     _claim: Any = ClusterClaim(
-        name=f"{user}-{shortuuid.uuid()[0:5].lower()}-cluster-claim",
+        name=f"{user}-{shortuuid.uuid()[0:5].lower()}",
         namespace=HIVE_CLUSTER_NAMESPACE,
         cluster_pool_name=pool,
     )
