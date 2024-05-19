@@ -10,7 +10,7 @@ ENV APP_DIR=/hive-claim-manager-server
 ENV POETRY_HOME=$APP_DIR
 ENV PATH="$APP_DIR/bin:$PATH"
 
-RUN mkdir -p /tmp/redis
+RUN mkdir -p /tmp/redis && chmod 777 /tmp/redis
 COPY pyproject.toml poetry.lock README.md entrypoint.sh redis.conf $APP_DIR/
 COPY api $APP_DIR/api/
 
